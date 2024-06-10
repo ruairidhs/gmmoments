@@ -49,39 +49,3 @@ def test_estimate():
     se_err = distance(ests_std, np.mean(ses, axis=0))
     assert ests_err < 1e-5
     assert se_err < 1e-5
-
-##
-#ni = 1_000
-
-#sigma2 = np.array([1.0, 1.0, 1.0, 1.0, 1.0])
-#coefs_y = np.array([1.0, 0.5, -2.0, 0.8])
-#coefs_x2 = np.array([-3.0, 1.0, 1.5])
-#target = np.array([1.0, 0.5, -2.0])
-#init = np.ones(3)
-
-###
-#nsamples = 1_000
-#out = [gmm.estimate(g, generate_data(ni, sigma2, coefs_y, coefs_x2), init) for _ in range(nsamples)]
-
-#ests = np.array([o for o in out])
-#est_vars = np.var(ests, axis=0)
-#vcovs = np.array([o[1] for o in out])
-#vcov_means = np.mean(vcovs, axis=0)
-
-###
-
-#data = generate_data(ni, sigma2, coefs_y, coefs_x2)
-#x0 = gmm.estimate(g, data, init)
-
-## then i need to apply again over the data
-## g_inds = jax.vmap(g, in_axes=(0, None))(data, x0)
-#W2 = gmm.estimate_opt_weighting_matrix(g, data, x0)
-#out = gmm._find_min(g, data, W2, x0)
-
-## I need to compute the error vector and then it's jacobian
-#e = jnp.mean(jax.vmap(g, in_axes=(0, None))(data, out), axis=0)
-
-#J = jax.jacfwd(lambda theta: jnp.mean(jax.vmap(g, in_axes=(0, None))(data, theta), axis=0))(out)
-
-#(1 / 1000) * jnp.linalg.inv(J @ W2 @ jnp.transpose(J))
-
