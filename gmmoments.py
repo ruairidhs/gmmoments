@@ -5,6 +5,24 @@ from jax.scipy import optimize as jopt
 from functools import partial # for @jax.jit
 
 def estimate(g, data, init_guess):
+    """Estimate GMM given a moment function and data.
+
+    Arguments:
+    g -- a function `g(di, theta)` which returns the vector of moment errors given individual data `di` and parameters `theta`.
+    data -- used to estimate the model, with individual units on the first axis.
+    init_guess -- an initial guess for the parameters.
+
+    Output:
+    A dictionary with the following keys:
+    coef -- the estimated parameters.
+    stderr -- the estimated standard errors for those parameters.
+    vcov -- the estimate of the full parameter variance-covariance matrix.
+
+    Method:
+    The function uses a two-step method. In the first step an identity weighting matrix is used to estimate the parameters.
+    These parameters are then used to estimate the optimal weighting matrix.
+    The parameters are then re-estimated using the estimated optimal weighting matrix.
+    """
     W = jnp.identity(get_n_moments(g, data, init_guess))
     first_step = _find_min(g, data, W, init_guess)
     W2 = estimate_opt_weighting_matrix(g, data, first_step)
