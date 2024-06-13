@@ -6,8 +6,8 @@ name = "pypi"
 [packages]
 numpy = "*"
 pytest = "*"
-jax = {extras = ["cpu"], version = "*"}
 ipython = "*"
+jax = {extras = ["cpu"], version = "*"}
 
 [dev-packages]
 
