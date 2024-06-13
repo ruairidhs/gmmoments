@@ -9,7 +9,12 @@ readme = "README.md"
 requires-python = ">=3.8"
 
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = [
+    "setuptools>=61.0",
+    numpy = "*",
+    ipython = "*",
+    jax = {extras = ["cpu"], version = "*"},
+]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
