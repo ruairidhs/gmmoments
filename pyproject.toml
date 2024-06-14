@@ -7,6 +7,10 @@ authors = [
 description = "Estimate parameters using generalized method of moments."
 readme = "README.md"
 requires-python = ">=3.8"
+dependencies = [
+    "numpy",
+    "jax[cpu]",
+]
 
 [build-system]
 requires = ["setuptools>=61.0"]
